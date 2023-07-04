@@ -24,7 +24,7 @@ class ShowPostViews {
 			'post_type' => 'post',
 			'posts_per_page' => 3,
 			'meta_key' => 'post_views',
-			'orderby' => 'meta_value',
+			'orderby' => 'meta_value_num',
 			'order' => 'DESC'
 		);
 
@@ -54,7 +54,7 @@ class ShowPostViews {
 			'post_type' => 'page',
 			'posts_per_page' => 3,
 			'meta_key' => 'post_views',
-			'orderby' => 'meta_value',
+			'orderby' => 'meta_value_num',
 			'order' => 'DESC'
 		);
 

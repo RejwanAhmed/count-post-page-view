@@ -16,13 +16,21 @@ class CountPostPageView {
 		$this->define_constants();
 
 		require_once( CPPV_PATH . 'src/CountPostView.php' );
-		$Count_Post_View = new CountPostView();
+		new CountPostView();
 
 		require_once( CPPV_PATH . 'src/ShowPostViews.php' );
-		$Show_Post_Views = new ShowPostViews();
+		new ShowPostViews();
+
+		require_once( CPPV_PATH . 'src/AddMetaboxPostsPages.php' );
+		new AddMetaBoxPostsPages();
 
 		require_once( CPPV_PATH . 'src/CustomLikeButton.php' );
-//		$CustomLikeButton = new CustomLikeButton();
+		new CustomLikeButton();
+
+		require_once( CPPV_PATH . 'src/CustomColumns.php' );
+		new CustomColumns();
+
+
 	}
 
 	public function define_constants() {
