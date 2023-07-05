@@ -35,7 +35,7 @@ class CustomColumns {
 		foreach ( $columns as $key => $value ) {
 			$new_columns[$key] = $value;
 			if ( $key === 'title' ) {
-				$new_columns['custom_like_count'] = 'Total Likes';
+				$new_columns['custom_like_count'] = esc_html__( 'Total Likes', 'count-post-page-view' );
 			}
 		}
 		return $new_columns;
@@ -52,9 +52,9 @@ class CustomColumns {
 	 */
 	public function display_posts_pages_total_likes( $column, $post_id ) {
 		if ( $column === 'custom_like_count' ) {
-			$total_likes = get_post_meta( $post_id, 'custom_like_count', true );
+			$total_likes = sanitize_text_field( get_post_meta( $post_id, 'custom_like_count', true ) );
 			$total_likes = ( $total_likes > 0 ) ? $total_likes : 0;
-			echo esc_html( $total_likes );
+			echo esc_html__( $total_likes, 'count-post-page-view' );
 		}
 	}
 }

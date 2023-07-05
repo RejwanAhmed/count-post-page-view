@@ -30,7 +30,7 @@ class AddMetaBoxPostsPages {
 	public function custom_like_button_metabox() {
 		add_meta_box(
 			'custom_like_button_metabox',
-			'Like Button',
+			esc_html__( 'Like Button', 'count-post-page-view' ),
 			array( $this, 'custom_like_button_metabox_callback' ),
 			array( 'post', 'page' ),
 			'side',
@@ -49,7 +49,7 @@ class AddMetaBoxPostsPages {
 		$checked = checked( $show_like_button, '1', false );
 		$escaped_checked = esc_html( $checked );
 
-		echo '<label><input type="checkbox" name="show_like_button" value="1" ' . $escaped_checked . '> Show Like Button</label>';
+		echo '<label><input type="checkbox" name="show_like_button" value="1" ' . $escaped_checked . '> ' . esc_html_e("Show Like Button", "count-post-page-view" ) . '</label>';
 	}
 
 	/*

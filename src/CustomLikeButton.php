@@ -59,10 +59,11 @@ class CustomLikeButton {
 		// Check if it's a post or page'
 		if ( is_singular( array( 'post', 'page' ) ) && $like_button_status ) {
 
-			$like_count  = get_post_meta( $id, 'custom_like_count', true );
-			$like_button = '<button class="custom-like-button" data-post-id="' . esc_attr( $id ) . '">Like</button>';
-			$title       .= ' <br>' . $like_button . ' <span style = "font-size: 18px">' . esc_html( $like_count ) . '</span>';
+			$like_count  = sanitize_text_field( get_post_meta( $id, 'custom_like_count', true ) );
 
+			$like_button = '<button class="custom-like-button" data-post-id="' . esc_attr( $id ) . '">' . esc_html__( 'Like', 'count-post-page-view') . '</button>';
+
+			$title       .= ' <br>' . $like_button . ' <span style = "font-size: 18px">' .  $like_count . '</span>';
 		}
 		return $title;
 
@@ -78,10 +79,10 @@ class CustomLikeButton {
 			wp_send_json_error( 'Invalid nonce' );
 		}
 
-		$post_id = intval( $_POST['post_id'] );
+		$post_id = sanitize_text_field( intval( $_POST['post_id'] ) );
 
 		// Retrieve the current like count from the database
-		$like_count = get_post_meta( $post_id, 'custom_like_count', true );
+		$like_count = sanitize_text_field( get_post_meta( $post_id, 'custom_like_count', true ) );
 
 		// Increase the like count by 1
 		$like_count++;
