@@ -15,8 +15,8 @@ class CustomLikeButton {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		add_action( 'wp_enqueue_scripts', array( $this, 'custom_like_button_scripts' ) );
-		add_filter( 'the_title', array( $this, 'custom_like_button' ), 10, 2 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'like_button_scripts' ) );
+		add_filter( 'the_title', array( $this, 'show_like_button' ), 10, 2 );
 		add_action( 'wp_ajax_custom_like_button_ajax', array( $this, 'custom_like_button_ajax' ) );
 		add_action( 'wp_ajax_nopriv_custom_like_button_ajax', array( $this, 'custom_like_button_ajax' ) );
 	}
@@ -28,7 +28,7 @@ class CustomLikeButton {
 	 *
 	 * @since 1.0.0
 	 */
-	public function custom_like_button_scripts() {
+	public function like_button_scripts() {
 		wp_enqueue_script( 'custom-like-button', CPPV_URL . 'assets/js/custom-like-button.js', array ( 'jquery' ), '1.0', true );
 
 		// This functio is used to transfer the data from php to javascript
@@ -48,7 +48,7 @@ class CustomLikeButton {
 	 * @since 1.0.0
 	 * @return title
 	 */
-	public function custom_like_button( $title, $id ) {
+	public function show_like_button( $title, $id ) {
 		if ( is_admin() ) {
 			return $title;
 		}

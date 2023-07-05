@@ -25,28 +25,9 @@ class CountPostPageView {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-
 		$this->define_constants();
-
-		// This class is used for increasing the value of posts and pages views
-		require_once( CPPV_PATH . 'src/Admin/CountPostView.php' );
-		new CountPostView();
-
-		// This class is used for showing the 3 top most viewed pages and posts
-		require_once( CPPV_PATH . 'src/Admin/ShowPostViews.php' );
-		new ShowPostViews();
-
-		// This class is used for adding a metabox option in both posts and pages for showing like button or not
-		require_once( CPPV_PATH . 'src/Admin/AddMetaBoxPostsPages.php' );
-		new AddMetaBoxPostsPages();
-
-		// This class is used for showing like button under the title of a post and page.
-		require_once( CPPV_PATH . 'src/CustomLikeButton.php' );
-		new CustomLikeButton();
-
-		// This class is used for creating custom column to show total likes of a page and post.
-		require_once( CPPV_PATH . 'src/Admin/CustomColumns.php' );
-		new CustomColumns();
+		$this->require_files();
+		$this->instantiate_class();
 	}
 
 	/*
@@ -59,7 +40,44 @@ class CountPostPageView {
 		define( 'CPPV_PATH', plugin_dir_path( __FILE__ ) );
 		define( 'CPPV_URL', plugin_dir_url( __FILE__ ) );
 	}
+
+	/*
+	 * Requires all file that we need to call
+	 *
+	 * @since 1.0.0
+	 */
+	public function require_files() {
+		require_once( CPPV_PATH . 'src/Admin/CountPostView.php' );
+		require_once( CPPV_PATH . 'src/Admin/ShowPostViews.php' );
+		require_once( CPPV_PATH . 'src/Admin/AddMetaBoxPostsPages.php' );
+		require_once( CPPV_PATH . 'src/CustomLikeButton.php' );
+		require_once( CPPV_PATH . 'src/Admin/CustomColumns.php' );
+	}
+
+	/*
+	 * It instantiates all classes
+	 *
+	 * @since 1.0.0
+	 */
+	public function instantiate_class() {
+		// This class is used for increasing the value of posts and pages views
+		new CountPostView();
+
+		// This class is used for showing the 3 top most viewed pages and posts
+		new ShowPostViews();
+
+		// This class is used for adding a metabox option in both posts and pages for showing like button or not
+		new AddMetaBoxPostsPages();
+
+		// This class is used for showing like button under the title of a post and page.
+		new CustomLikeButton();
+
+		// This class is used for creating custom column to show total likes of a page and post.
+		new CustomColumns();
+	}
 }
 
-// Initialize the plugin
-new CountPostPageView();
+if ( class_exists( 'CountPostPageView' ) ) {
+	// Initialize the plugin
+	new CountPostPageView();
+}

@@ -16,10 +16,10 @@ class AddMetaBoxPostsPages {
 	 */
 	public function __construct() {
 		// Hook for creating the metabox
-		add_action( 'add_meta_boxes', array( $this, 'custom_like_button_metabox' ) );
+		add_action( 'add_meta_boxes', array( $this, 'register_like_button_metabox' ) );
 
 		// Hook for saving the data of metabox
-		add_action( 'save_post', array( $this, 'custom_like_button_save_metabox' ) );
+		add_action( 'save_post', array( $this, 'like_button_save' ) );
 	}
 
 	/*
@@ -27,11 +27,11 @@ class AddMetaBoxPostsPages {
 	 *
 	 * @since 1.0.0
 	 */
-	public function custom_like_button_metabox() {
+	public function register_like_button_metabox() {
 		add_meta_box(
 			'custom_like_button_metabox',
 			esc_html__( 'Like Button', 'count-post-page-view' ),
-			array( $this, 'custom_like_button_metabox_callback' ),
+			array( $this, 'like_button_metabox_callback' ),
 			array( 'post', 'page' ),
 			'side',
 			'default'
@@ -44,7 +44,7 @@ class AddMetaBoxPostsPages {
 	 * @since 1.0.0
 	 */
 
-	public function custom_like_button_metabox_callback( $post ) {
+	public function like_button_metabox_callback( $post ) {
 		$show_like_button = get_post_meta( $post->ID, 'show_like_button', true );
 		$checked = checked( $show_like_button, '1', false );
 		$escaped_checked = esc_html( $checked );
@@ -57,7 +57,7 @@ class AddMetaBoxPostsPages {
 	 *
 	 * @since 1.0.0
 	 */
-	public function custom_like_button_save_metabox( $post_id ) {
+	public function like_button_save( $post_id ) {
 
 		// if the user doesn't have the ability, it will not update the data.
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
