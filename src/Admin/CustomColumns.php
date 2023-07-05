@@ -24,8 +24,8 @@ class CustomColumns {
 	public function display_posts_pages_total_likes( $column, $post_id ) {
 		if ( $column === 'custom_like_count' ) {
 			$total_likes = get_post_meta( $post_id, 'custom_like_count', true );
-			$total_likes = ($total_likes > 0) ? $total_likes : 0;
-			echo $total_likes;
+			$total_likes = ( $total_likes > 0 ) ? $total_likes : 0;
+			echo esc_html( $total_likes );
 		}
 	}
 }

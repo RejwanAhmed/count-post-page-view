@@ -29,8 +29,8 @@ class CustomLikeButton {
 		if ( is_singular( array( 'post', 'page' ) ) && $like_button_status ) {
 
 			$like_count  = get_post_meta( $id, 'custom_like_count', true );
-			$like_button = '<button class="custom-like-button" data-post-id="' . $id . '">Like</button>';
-			$title       .= ' <br>' . $like_button . ' <span style = "font-size: 18px">' . $like_count . '</span>';
+			$like_button = '<button class="custom-like-button" data-post-id="' . esc_attr( $id ) . '">Like</button>';
+			$title       .= ' <br>' . $like_button . ' <span style = "font-size: 18px">' . esc_html( $like_count ) . '</span>';
 
 		}
 		return $title;

@@ -21,8 +21,10 @@ class AddMetaBoxPostsPages {
 
 	public function custom_like_button_metabox_callback( $post ) {
 		$show_like_button = get_post_meta( $post->ID, 'show_like_button', true );
+		$checked = checked( $show_like_button, '1', false );
+		$escaped_checked = esc_html( $checked );
 
-		echo '<label><input type="checkbox" name="show_like_button" value="1" ' . checked($show_like_button, '1',  false ) . '> Show Like Button</label>';
+		echo '<label><input type="checkbox" name="show_like_button" value="1" ' . $escaped_checked . '> Show Like Button</label>';
 	}
 
 	public function custom_like_button_save_metabox( $post_id ) {
@@ -31,7 +33,8 @@ class AddMetaBoxPostsPages {
 		}
 
 		$show_like_button = isset( $_POST['show_like_button'] ) ? 1 : 0;
-		update_post_meta( $post_id, 'show_like_button', $show_like_button );
+		$sanitized_show_like_button = sanitize_text_field( $show_like_button );
+		update_post_meta( $post_id, 'show_like_button', $sanitized_show_like_button );
 
 	}
 }

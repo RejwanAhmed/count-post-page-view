@@ -37,10 +37,10 @@ class ShowPostViews {
 			echo '<ul>';
 			while( $query->have_posts() ) {
 				$query->the_post();
-				$postTitle = get_the_title();
+				$postTitle = sanitize_text_field( get_the_title() );
 				$postViews = get_post_meta( get_the_ID(), 'post_views', true );
 
-				echo '<li>' . $postTitle . " : $postViews" . '</li>';
+				echo '<li>' . esc_html( $postTitle ) . ' : ' . esc_html( $postViews ) . '</li>';
 			}
 			echo '</ul>';
 			echo '</div>';
@@ -66,10 +66,10 @@ class ShowPostViews {
 			echo '<ul>';
 			while( $query->have_posts() ) {
 				$query->the_post();
-				$pageTitle = get_the_title();
+				$pageTitle = sanitize_text_field( get_the_title() );
 				$pageViews = get_post_meta( get_the_ID(), 'post_views', true );
 
-				echo '<li>' . $pageTitle . " : $pageViews" . '</li>';
+				echo '<li>' . esc_html( $pageTitle ) . ' : ' . esc_html( $pageViews ) . '</li>';
 			}
 			echo '</ul>';
 			echo '</div>';
