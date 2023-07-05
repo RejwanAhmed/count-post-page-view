@@ -1,7 +1,19 @@
 <?php
+// don't call the file directly.
 defined( 'ABSPATH' ) || exit();
 
+/*
+ * Class CustomLikeButton
+ *
+ * @since 1.0.0
+ */
 class CustomLikeButton {
+
+	/*
+	 * CustomLikeButton Constructor
+	 *
+	 * @since 1.0.0
+	 */
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'custom_like_button_scripts' ) );
 		add_filter( 'the_title', array( $this, 'custom_like_button' ), 10, 2 );
@@ -9,14 +21,33 @@ class CustomLikeButton {
 		add_action( 'wp_ajax_nopriv_custom_like_button_ajax', array( $this, 'custom_like_button_ajax' ) );
 	}
 
+	/*
+	 * Enqueues the js file
+	 *
+	 * transfers the data of php to javascript
+	 *
+	 * @since 1.0.0
+	 */
 	public function custom_like_button_scripts() {
 		wp_enqueue_script( 'custom-like-button', CPPV_URL . 'assets/js/custom-like-button.js', array ( 'jquery' ), '1.0', true );
+
+		// This functio is used to transfer the data from php to javascript
 		wp_localize_script( 'custom-like-button', 'custom_like_button_ajax', array(
 			'ajax_url' => admin_url('admin-ajax.php'),
 			'nonce' => wp_create_nonce('custom-like-button-nonce')
 		) );
 	}
 
+	/*
+	 * shows the like button under the title of a post and page
+	 *
+	 * @param $title The title of the post or page
+	 *
+	 * @param $id ID of the post or page
+	 *
+	 * @since 1.0.0
+	 * @return title
+	 */
 	public function custom_like_button( $title, $id ) {
 		if ( is_admin() ) {
 			return $title;
@@ -37,7 +68,11 @@ class CustomLikeButton {
 
 	}
 
-	// Handle the AJAX request to update the like count
+	/*
+	 * Handle the AJAX request to update the like count
+	 *
+	 * @since 1.0.0
+	 */
 	public function custom_like_button_ajax() {
 		if ( ! wp_verify_nonce( $_POST['nonce'], 'custom-like-button-nonce' ) ) {
 			wp_send_json_error( 'Invalid nonce' );
